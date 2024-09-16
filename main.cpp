@@ -7,7 +7,21 @@ using namespace std;
 // `pos` specifies the index to sort by if sorting a vector of pairs.
 template <typename T>
 void stableSelectionSort(vector<T>& a) {
-    
+    int n = a.size();
+        for (int i = 0; i < n-1; i++) {
+            int min = i;
+            for (int j = i+1; j < n; j++) {
+                if (a[j] < a[min]) {
+                    min = j;
+                }
+            }
+            T minval = a[min];
+            for (int k = min; k > i; k--){
+                a[k] = a[k-1];
+            }
+
+            a[i] = minval;
+        }
 }
 
 // Unstable Selection Sort given in slides
@@ -17,7 +31,7 @@ void selectionSort(vector<T>& a) {
         for (int i = 0; i < n; i++) {
             int min = i;
             for (int j = i+1; j < n; j++) {
-                if (a[j] < a[min]) min = j;
+                if (a[j] < a[min]) min = j; // test
             }
             std::swap(a[i], a[min]);
         }
@@ -34,7 +48,7 @@ int main() {
     cout << endl;
 
     // Sort by the second element of the pairs
-    selectionSort(arr);
+    stableSelectionSort(arr);
 
     // Print sorted array
     cout << "Sorted array by the first element:" << endl;
